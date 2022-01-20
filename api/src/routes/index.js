@@ -10,29 +10,38 @@ const router = Router()
 // Ejemplo: router.use('/auth', authRouter);
 
 //solicitando los datos a la API 
-const getApiInformation = async ()=> { //getApiInformation retorna los datos de los Pokemon
-    let getInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon`)
-    const howManyPokes = getInfo.data.count
+const getApiInformation = async()=> { //getApiInformation retorna los datos de los Pokemon
+   console.time('pokes')
+//     let getInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon`)    
+//    const howManyPokes = getInfo.data.count   
     let id = 1
     let pokeInfo = []   
     
-    while(id <= 20){        
-            let getInfoById = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-            let pokedata = await getInfoById.data
-            pokeInfo.push({
-                id: pokedata.id,
-                name: pokedata.name,
-                life: pokedata.stats[0].base_stat,
-                force: pokedata.stats[1].base_stat,
-                defense: pokedata.stats[2].base_stat,
-                speed: pokedata.stats[5].base_stat,
-                weight: pokedata.weight,
-                height: pokedata.height,
-                img: pokedata.sprites.other.dream_world.front_default
-            })   
-           id++                    
-        }           
-        return pokeInfo
+    while(id <= 10){    
+            pokeInfo.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))   
+            id++
+    }
+            let getInfoById = await Promise.all(pokeInfo)
+            .then(pokemon=> {
+                let allPokes = pokemon.map(x=> {
+                    return {
+                        id: x.data.id,
+                        name: x.data.name,
+                        life: x.data.stats[0].base_stat,
+                        force: x.data.stats[1].base_stat,
+                        defense: x.data.stats[2].base_stat,
+                        speed: x.data.stats[5].base_stat,
+                        weight: x.data.weight,
+                        height: x.data.height,
+                        img: x.data.sprites.other.dream_world.front_default
+                    }
+                })
+                return allPokes
+            })            
+      
+        console.timeEnd('pokes')           
+       
+        return getInfoById
     } 
 
 const getDbInformation = async()=> {
@@ -82,14 +91,14 @@ router.post(`/pokemons`, async (req, res)=> {
 
     Pokemon.findOrCreate({
         where: {
-        id: id,
-        name: name,
-        life: life,
-        force: force,
-        defense: defense,
-        speed: speed, 
-        weight: weight,
-        height: height, 
+            id: id,
+            name: name,
+            life: life,
+            force: force,
+            defense: defense,
+            speed: speed, 
+            weight: weight,
+            height: height, 
         }        
     })
     res.send("Your pokemon has been created correctly")
