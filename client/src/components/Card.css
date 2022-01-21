@@ -1,4 +1,12 @@
 .card{
     border: solid 1px black;
-    width: 35%;
+    width: 75%;
+    height: 90%;
+    margin: 1rem;
+    border-radius: 1rem;
+}
+
+.img{
+    width: 50%;
+    height: 50%;
 }

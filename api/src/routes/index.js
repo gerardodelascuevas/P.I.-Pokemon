@@ -17,13 +17,13 @@ const getApiInformation = async()=> { //getApiInformation retorna los datos de l
     let id = 1
     let pokeInfo = []   
     
-    while(id <= 10){    
+    while(id <= 40){    
             pokeInfo.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))   
             id++
     }
             let getInfoById = await Promise.all(pokeInfo)
             .then(pokemon=> {
-                let allPokes = pokemon.map(x=> {
+                let apiPokes = pokemon.map(x=> {
                     return {
                         id: x.data.id,
                         name: x.data.name,
@@ -36,7 +36,7 @@ const getApiInformation = async()=> { //getApiInformation retorna los datos de l
                         img: x.data.sprites.other.dream_world.front_default
                     }
                 })
-                return allPokes
+                return apiPokes
             })            
       
         console.timeEnd('pokes')           
@@ -55,10 +55,13 @@ const getDbInformation = async()=> {
         }
     })
 }
+//console.log('esto trae mi db' + getDbInformation())
 
 const getAllInformation = async()=> {
     const apiInfo = await getApiInformation()
+    console.log('apiInfo: ' + apiInfo)
     const dbInfo = await getDbInformation()
+    console.log('dbInfo: ' + dbInfo)
     const allInfo = apiInfo.concat(dbInfo)
     return allInfo
 }
