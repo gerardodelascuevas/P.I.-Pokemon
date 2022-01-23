@@ -12,32 +12,24 @@ export default function Home(){
     const dispatch = useDispatch()
     const allPokes = useSelector(state=> state.pokemon)   
 
+    useEffect(()=> dispatch(getPokemons()), [dispatch])     
+    
+    //INICIO DE LOGICA DE PAGINADO 
     const [pages, setPages] = useState(1)
-    const [pokepp, setPokepp] = useState(12)
+    const [pokepp] = useState(12)
 
     let lastPoke = pages * pokepp
     let firstPoke = lastPoke - pokepp
     let currentPoke = allPokes.slice(firstPoke, lastPoke)
     
-    let pagination = (number)=> {        
-       return setPages(number)        
-    }
-   
-
-    useEffect(()=> {
-        dispatch(getPokemons())
-    }, [dispatch])
-
-    function handleSubmit(e){
-        e.preventDefault()
-        dispatch(getPokemons())
-    }    
-
+    let pagination = (number)=>  setPages(number)        
+       //FIN DE LOGICA DE PAGINADO        
+      
 
     return(
         <div>
             <h1> The PokeAPP </h1>
-            <Search />
+            <Search />      
             <Link to='/'> 
             <button id='backtothelanding'> Back to the Landing Page </button>
             </Link>            
@@ -46,17 +38,17 @@ export default function Home(){
             pokepp = { pokepp }
             allPokes = { allPokes.length }
             pagination = { pagination }
-            />
+            />           
             <span className='span'> <b> You are on Page {pages} </b> </span>  
             <div className='cards'>        
            {   currentPoke.map(x=> {               
-                return <Card key={x.id} id={x.id} name={x.name} img={x.img} />
+                return <Card key={x.id} id={x.id} name={x.name} img={x.img} type={x.type} />
                  })            
-            }               
+           }               
             </div>         
         </div>
     )
 }
-                    
+
                    
           

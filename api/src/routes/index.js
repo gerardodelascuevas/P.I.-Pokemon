@@ -13,13 +13,11 @@ const router = Router()
 const getApiInformation = async()=> { //getApiInformation retorna los datos de los Pokemon
    console.time('pokes')
 //     let getInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon`)    
-//    const howManyPokes = getInfo.data.count   
-    let id = 1
+//    const howManyPokes = getInfo.data.count    
     let pokeInfo = []   
     
-    while(id <= 40){    
-            pokeInfo.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))   
-            id++
+    for(let id=1; id<41; id++){    
+            pokeInfo.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))               
     }
             let getInfoById = await Promise.all(pokeInfo)
             .then(pokemon=> {
@@ -33,7 +31,8 @@ const getApiInformation = async()=> { //getApiInformation retorna los datos de l
                         speed: x.data.stats[5].base_stat,
                         weight: x.data.weight,
                         height: x.data.height,
-                        img: x.data.sprites.other.dream_world.front_default
+                        img: x.data.sprites.other.dream_world.front_default,
+                        type: x.data.types,
                     }
                 })
                 return apiPokes
@@ -59,9 +58,9 @@ const getDbInformation = async()=> {
 
 const getAllInformation = async()=> {
     const apiInfo = await getApiInformation()
-    console.log('apiInfo: ' + apiInfo)
+    // console.log('apiInfo: ' + apiInfo)
     const dbInfo = await getDbInformation()
-    console.log('dbInfo: ' + dbInfo)
+    // console.log('dbInfo: ' + dbInfo)
     const allInfo = apiInfo.concat(dbInfo)
     return allInfo
 }
@@ -69,8 +68,7 @@ const getAllInformation = async()=> {
 router.get('/pokemons', async (req, res) => {  
     const { name } = req.query 
     const allPoke = await getAllInformation()
-        if(name){
-            console.log(name)
+        if(name){            
             const pokename = allPoke.filter(x => x.name.toLowerCase().includes(name.toLocaleLowerCase())) 
             pokename.length ? 
             res.send(pokename) : res.sendStatus(404).send("Sorry, your pokemon isn't available")

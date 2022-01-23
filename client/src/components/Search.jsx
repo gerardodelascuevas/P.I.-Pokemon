@@ -1,43 +1,57 @@
 import React from 'react'
+import './Search.css'
+import { getType } from '../actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { getByName } from '../actions'
+import { useNavigate } from 'react-router'
 
 export default function Search(){
+    const dispatch = useDispatch()
+    const allTypes = useSelector(state=> state.type)
+    const navigate = useNavigate()  
+
+    useEffect(()=> dispatch(getType()), [dispatch])
+    
+    const [name, setName] = useState('')
+    
+    const searching = (e)=> {
+        e.preventDefault()
+        console.log('hago click')
+        // dispatch(getByName(name))
+        setName(e)
+        console.log(name)        
+    }    
 
     return(
         <div>
-            <input className='search' placeholder='Search your Pokemon' />
+            <input type='text' className='search' placeholder='Search your Pokemon' onChange={e=> setName(e.target.value)} />
+            <button className='search' onClick={e=> searching(e)}> Search </button>
+            {/* <select>
+                <option> Order by Name </option>
+                <option value='up'> Ascending </option>
+                <option value='down'> Descending </option>
+            </select>
+
             <select>
-                <option> Order by </option>
-                <option value='asc'> Ascending </option>
-                <option value='desc'> Descending </option>
+                <option> Order by force </option>
+                <option value='up'> Ascending </option>
+                <option value='down'> Descending </option>
             </select>
             <select>
                 <option > Pokemon Type </option>
-                <option value='normal'> Normal </option>
-                <option value='fighting'> Fighting </option>
-                <option value='flying'> Flying </option>
-                <option value='poison'> Poison </option>
-                <option value='ground'> Ground </option>
-                <option value='rock'> Rock </option>
-                <option value='bug'> Bug </option>
-                <option value='ghost'> Ghost </option>
-                <option value='steel'> Steel </option>
-                <option value='fire'> Fire </option>
-                <option value='water'> Water </option>
-                <option value='grass'> Grass </option>
-                <option value='electric'> Electric </option>
-                <option value='psychic'> Psychic </option>
-                <option value='ice'> Ice </option>
-                <option value='dragon'> Dragon </option>
-                <option value='dark'> Dark </option>
-                <option value='fairy'> Fairy </option>
-                <option value='unknown'>  Unknown </option>
-                <option value='shadow'> Shadow </option>
-            </select>
+                { allTypes.map(x=> <option value='x.name'> {x.name} </option> )}
+             </select>
+
             <select>
                 <option>Created by </option>
                 <option> Created by the database </option>
                 <option> Created by you </option>
-            </select>
-        </div>
+            </select>  */}          
+        </div> 
     )
-}
+}               
+                    
+               
+                
+       
