@@ -7,6 +7,7 @@ export default function Card({ id, name, img, type}){
     if(type[1]) types = types + ' & ' + type[1].type.name
     
    if(name) name = name.charAt(0).toUpperCase() + name.slice(1)
+   //console.log(type)
      
     return (
         <div className='card'>

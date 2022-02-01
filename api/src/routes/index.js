@@ -33,6 +33,7 @@ const getApiInformation = async()=> { //getApiInformation retorna los datos de l
                         height: x.data.height,
                         img: x.data.sprites.other.dream_world.front_default,
                         type: x.data.types,
+                        
                     }
                 })
                 return apiPokes
@@ -47,7 +48,7 @@ const getDbInformation = async()=> {
     return await Pokemon.findAll({
         include:{
             model: Type,
-            attributes: ['name'],
+            attributes: [],
             through: {
                 attributes: []
             }
@@ -58,9 +59,9 @@ const getDbInformation = async()=> {
 
 const getAllInformation = async()=> {
     const apiInfo = await getApiInformation()
-    // console.log('apiInfo: ' + apiInfo)
+     console.log('apiInfo: ' + apiInfo)
     const dbInfo = await getDbInformation()
-    // console.log('dbInfo: ' + dbInfo)
+     console.log('dbInfo: ' + dbInfo)
     const allInfo = apiInfo.concat(dbInfo)
     return allInfo
 }
@@ -88,11 +89,11 @@ router.get(`/pokemons/:id`, async (req, res)=> {
 })
 
 router.post(`/pokemons`, async (req, res)=> {
-    const { id, name, life, force, defense, speed, weight, height } = req.body
+    const {  name, life, force, defense, speed, weight, height, type } = req.body
 
     Pokemon.findOrCreate({
         where: {
-            id: id,
+            //id: id,
             name: name,
             life: life,
             force: force,
@@ -100,8 +101,15 @@ router.post(`/pokemons`, async (req, res)=> {
             speed: speed, 
             weight: weight,
             height: height, 
+            type: type, 
         }        
     })
+
+    let types = await Type.findAll({
+        where: { name: type },
+      });
+      charactedCreated.addType(types)     
+
     res.send("Your pokemon has been created correctly")
 })
 

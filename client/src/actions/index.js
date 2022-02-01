@@ -75,6 +75,29 @@ export const getByType = (type)=> {
     }
 }
 
-export const orderById = ()=> {
-
+export const postPokemon = (payload)=> {
+    return async function(dispatch){
+        const response = await axios.post(`http://localhost:3001/pokemons`, payload);
+        return response 
+    }
 }
+
+export const filterCreate = (payload)=> {
+    return {
+        type: "FILTER_BY_CREATE",
+        payload
+    }
+}
+
+export const orderByName = (payload)=> {
+    return{
+        type: "ORDER_BY_NAME",
+        payload
+    }
+}    
+    export const orderByForce = (payload)=> {
+        return {
+            type: "ORDER_BY_FORCE",
+            payload
+        }
+    }
