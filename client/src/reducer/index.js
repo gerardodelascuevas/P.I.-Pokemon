@@ -41,9 +41,9 @@ export default function rootReducer(state = initialState, action){
             }
         case "FILTER_BY_CREATE":
                 const pokes = state.pokemon           
-                const filterbycreate = action.payload === "Created by the API" ? state.pokemon .filter(x=> x.createdByDb === true) 
-                : state.pokemon .filter(x=> !x.createdByDb)              
-                console.log(state.pokemon)
+                const filterbycreate = action.payload === "Created by the you" ? state.pokemon.filter(x=> x.createdByDb === true) 
+                : state.pokemon.filter(x=> !x.createdByDb)              
+                //console.log(state.pokemon)
                 return {
                     ...state,
                     pokemon: action.payload=== "Created by" ? state.pokemon : filterbycreate

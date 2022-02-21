@@ -2,9 +2,16 @@ import React from 'react'
 import './Card.css'
 import { Link } from 'react-router-dom'
 
-export default function Card({ id, name, img, type}){
-    let types = type[0].type.name
-    if(type[1]) types = types + ' & ' + type[1].type.name
+export default function Card({ id, name, img, type, Types }){
+    let types = ''
+    if(Types && !type) types = Types[0].name 
+    
+    else{  
+        if (type && !Types)  types = type[0].type.name
+        if(!Types && type && type[1] ) types = types + ' & ' + type[1].type.name
+    }
+    
+    
     
    if(name) name = name.charAt(0).toUpperCase() + name.slice(1)
    //console.log(type)

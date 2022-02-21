@@ -32,7 +32,7 @@ export default function Home(){
         }
        //FIN DE LOGICA DE FILTRADO POR DONDE FUE CREADO
        
-       //console.log(allPokes)
+       console.log(allPokes)
     
        //LOGICA DE ORDENAMIENTO POR NOMBRE 
        const [ordByName, setOrdByName] = useState('')

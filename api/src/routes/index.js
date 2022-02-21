@@ -48,7 +48,7 @@ const getDbInformation = async()=> {
     return await Pokemon.findAll({
         include:{
             model: Type,
-            attributes: [],
+            attributes: ["name"],
             through: {
                 attributes: []
             }
@@ -89,26 +89,13 @@ router.get(`/pokemons/:id`, async (req, res)=> {
 })
 
 router.post(`/pokemons`, async (req, res)=> {
-    const {  name, life, force, defense, speed, weight, height, type } = req.body
-
-    Pokemon.findOrCreate({
-        where: {
-            //id: id,
-            name: name,
-            life: life,
-            force: force,
-            defense: defense,
-            speed: speed, 
-            weight: weight,
-            height: height, 
-            type: type, 
-        }        
-    })
-
+    const {  name, life, force, defense, speed, weight, height, type, img } = req.body
+    let pokemonCreated = await Pokemon.create( { name, life, force, defense, speed, weight, height, img } )
+   
     let types = await Type.findAll({
         where: { name: type },
       });
-      charactedCreated.addType(types)     
+      pokemonCreated.addType(types)     
 
     res.send("Your pokemon has been created correctly")
 })
