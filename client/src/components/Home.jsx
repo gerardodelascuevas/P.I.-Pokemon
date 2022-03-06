@@ -24,13 +24,6 @@ export default function Home(){
     
     let pagination = (number)=>  setPages(number)        
        //FIN DE LOGICA DE PAGINADO        
-      
-       //LOGICA DE FILTRADO POR DONDE FUE CREADO 
-        const handleFilterByCreate = (e)=> {
-            dispatch(filterCreate(e.target.value))
-            console.log(e.target.value)
-        }
-       //FIN DE LOGICA DE FILTRADO POR DONDE FUE CREADO
        
        console.log(allPokes)
     
@@ -54,6 +47,18 @@ export default function Home(){
          }
        //FIN DE LOGICA DE ORDENAMIENTO POR FUERZA 
 
+       //INICIO DE LOGICA DE FILTRO POR BASE DE DATOS / API 
+         const [createAt, setCreateAt] = useState('')
+
+         const filtrados = (e)=> {
+             dispatch(filterCreate(e))
+             setCreateAt(`order ${e}`)
+         }
+
+
+       // FIN DE LA LOGICA DE FILTRO POR BASE DE DATOS / API 
+
+
     return(
         <div>
             <h1> The PokeAPP </h1>
@@ -61,7 +66,7 @@ export default function Home(){
             <Search />  
 
             <div className='orders'>
-                <select onChange={e=> handleFilterByCreate(e)}>
+                <select onChange={e=> filtrados(e.target.value)}>
                     <option key='Created'>Created by </option>
                     <option key='Created by the API'> Created by the API </option>
                     <option key='Created by you'> Created by you </option>

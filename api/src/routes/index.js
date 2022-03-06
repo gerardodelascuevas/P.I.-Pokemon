@@ -57,14 +57,37 @@ const getDbInformation = async()=> {
 }
 //console.log('esto trae mi db' + getDbInformation())
 
-const getAllInformation = async()=> {
-    const apiInfo = await getApiInformation()
-     console.log('apiInfo: ' + apiInfo)
-    const dbInfo = await getDbInformation()
-     console.log('dbInfo: ' + dbInfo)
-    const allInfo = apiInfo.concat(dbInfo)
-    return allInfo
+// const getAllInformation = async()=> {
+//     const apiInfo = await getApiInformation()
+//      //console.log('apiInfo: ' + apiInfo)
+//     const dbInfo = await getDbInformation()
+//      //console.log('dbInfo: ' + dbInfo)
+//     const allInfo = apiInfo.concat(dbInfo)
+//     return allInfo
+// }
+ function getAllInformation (){
+    getApiInformation()
+   .then(apiInfo=>  apiInfo.concat(getDbInformation()))
+   .then(infototal => infototal)
+    
 }
+// function getAllInformation (){   
+//     const apiInfo = new Promise((res, rej)=> {
+//         res(getApiInformation())
+//     }) 
+//     const dbInfo = new Promise((res, rej)=> {
+//         res(getDbInformation())
+//     })
+//   .then(()=> dbInfo.concat(apiInfo), rej=> console.log(rej))
+// .then(()=> console.log(dbInfo))
+    // .then(apiInfo=> apiInfo.concat(getDbInformation()))
+    // .then(x => {
+    //     return x
+    // })
+
+// }
+console.log(getAllInformation())
+
 
 router.get('/pokemons', async (req, res) => {  
     const { name } = req.query 
@@ -77,6 +100,16 @@ router.get('/pokemons', async (req, res) => {
             res.send(allPoke)
         }
 })
+// router.get('/pokemons',  (req, res) => {  
+//     const { name } = req.query 
+//      getAllInformation()
+//         .then(pokemon => {
+//             if(name){
+//                 const pokemonname = pokemon.filter(p => p.name == name);
+//                 pokemonname.length ? res.send(pokemonname) : res.sendStatus(404).send("Sorry, your pokemon isn't available")
+//             } else res.send(pokemon)
+//         })
+// })
 
 router.get(`/pokemons/:id`, async (req, res)=> {  
     let  { id }  = req.params

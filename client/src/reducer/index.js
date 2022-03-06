@@ -16,10 +16,6 @@ export default function rootReducer(state = initialState, action){
             ...state,
             type: action.payload
         }
-        case "ORDER_BY_ID": 
-        return{
-
-        } 
         case "GET_BY_NAME":
             return{
                 ...state,
@@ -46,7 +42,7 @@ export default function rootReducer(state = initialState, action){
                 //console.log(state.pokemon)
                 return {
                     ...state,
-                    pokemon: action.payload=== "Created by" ? state.pokemon : filterbycreate
+                    pokemon: filterbycreate
                 } 
         case "ORDER_BY_NAME":
             let sortName = action.payload === "up" ?            

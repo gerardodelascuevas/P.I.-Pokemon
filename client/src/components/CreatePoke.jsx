@@ -15,13 +15,6 @@ export default function CreatePoke(){
 
     const allTypes = useSelector(state=> state.type)
 
-   
-
-    // const [typeTwo, setTypeTwo] = useState('')
-    // const handlePokeTwoType = (e)=> {
-    //     setTypeTwo(e.target.value)
-    // }
-
     const [newpoke, setNewpoke] = useState({
          //id: '',
         name: '',
@@ -35,13 +28,12 @@ export default function CreatePoke(){
         img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/152.svg"
     })
     
-
     const [typeOne, setTypeOne] = useState('')
     const handlePokeOneType = (e)=> {
         setTypeOne(e.target.value)
         setNewpoke({...newpoke, [e.target.name]:  newpoke.Types.concat(e.target.value) })
     }
-
+    console.log(typeOne)
     const handleCreatePoke = (e)=> {
 
         e.target.name === 'name' || e.target.name === 'img' ? setNewpoke({
@@ -55,7 +47,6 @@ export default function CreatePoke(){
         
     } 
    
-    
     const onButtonCreate = (e)=> {
        // console.log(newpoke)
         e.preventDefault()
@@ -91,13 +82,19 @@ export default function CreatePoke(){
                         { allTypes.map(x=> <option key={x.name} name= 'type'  value={x.name} > {x.name} </option> )}  
                     </select>
                 </h5>
-                <h5 > Pokemon life: <input  name='life' onChange={handleCreatePoke} type='range'min={1} max={100} /> </h5>
-                <h5 > Pokemon force: <input  name='force' onChange={handleCreatePoke} type='range'min='1' max='100'/> </h5>
-                <h5> Pokemon defense: <input  name='defense' onChange={handleCreatePoke} type='range'min='1' max='100'/> </h5>
-                <h5 > Pokemon speed: <input  name='speed' onChange={handleCreatePoke} type='range'min='1' max='100' /> </h5>
-                <h5 > Pokemon weight: <input  name='weight' onChange={handleCreatePoke} type='range'min='1' max='100'/> </h5>
-                <h5 > Pokemon height: <input  name='height' onChange={handleCreatePoke} type='range'min='1' max='100'/> </h5>
-                <button className="button" onClick={onButtonCreate}> Create! </button>
+                <h5 > Pokemon life: <input  name='life' onChange={handleCreatePoke} type='range'min={1} max={100} /> {newpoke.life} </h5> 
+                <h5 > Pokemon force: <input  name='force' onChange={handleCreatePoke} type='range'min='1' max='100'/> {newpoke.force}</h5>
+                <h5> Pokemon defense: <input  name='defense' onChange={handleCreatePoke} type='range'min='1' max='100'/> {newpoke.defense}</h5>
+                <h5 > Pokemon speed: <input  name='speed' onChange={handleCreatePoke} type='range'min='1' max='100' /> {newpoke.speed}</h5>
+                <h5 > Pokemon weight: <input  name='weight' onChange={handleCreatePoke} type='range'min='1' max='100'/> {newpoke.weight}</h5>
+                <h5 > Pokemon height: <input  name='height' onChange={handleCreatePoke} type='range'min='1' max='100'/> {newpoke.height}</h5>
+                <button className="button" onClick={onButtonCreate}
+                    disabled={
+                        newpoke.name.length < 3 || !newpoke.life || !newpoke.force || !newpoke.defense
+                         || !newpoke.speed || !newpoke.weight || !newpoke.height || !typeOne
+                        
+                    }
+                > Create! </button>
             </div>            
             
         </div>
