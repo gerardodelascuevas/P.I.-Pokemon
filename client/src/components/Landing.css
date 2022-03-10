@@ -4,10 +4,12 @@ html, body {
   }
 #container{    
     background-image: url('./img/Pokemon-GO.jpg'); 
-    height: 80vh;
+    height: 96vh;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(241,251,69,1) 100%);
+
   
 }
 
@@ -28,3 +30,36 @@ html, body {
    transform:scale(1.1);
 }
 
+.welcome{
+   width: 500px;
+}
+.pika{
+   mix-blend-mode: multiply;
+   background-blend-mode: unset;
+   filter: contrast(200%);
+
+   margin-top: 8rem;
+
+}
+@media (max-width: 575px) {
+   .welcome{
+      width: 80%;
+   }
+         
+    }
+    /** dispositivos pequeños en vista landscape (horizontal) */
+    @media (min-width: 576px) and (max-width: 767px) {
+      
+    }
+    /** dispositivos medianos (tablets) */
+    @media (min-width: 768px) and (max-width: 991px) {
+      
+    }
+    /** dispositivos grandes (desktops) */
+    @media (min-width: 992px) and (max-width: 1199px) {
+  
+    }
+    /** dispositivos extra grandes (monitores grandes, tvs) */
+    @media (min-width: 1200px) {
+     
+    }

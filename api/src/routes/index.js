@@ -57,20 +57,20 @@ const getDbInformation = async()=> {
 }
 //console.log('esto trae mi db' + getDbInformation())
 
-// const getAllInformation = async()=> {
-//     const apiInfo = await getApiInformation()
-//      //console.log('apiInfo: ' + apiInfo)
-//     const dbInfo = await getDbInformation()
-//      //console.log('dbInfo: ' + dbInfo)
-//     const allInfo = apiInfo.concat(dbInfo)
-//     return allInfo
-// }
- function getAllInformation (){
-    getApiInformation()
-   .then(apiInfo=>  apiInfo.concat(getDbInformation()))
-   .then(infototal => infototal)
-    
+const getAllInformation = async()=> {
+    const apiInfo = await getApiInformation()
+     //console.log('apiInfo: ' + apiInfo)
+    const dbInfo = await getDbInformation()
+     //console.log('dbInfo: ' + dbInfo)
+    const allInfo = apiInfo.concat(dbInfo)
+    return allInfo
 }
+//  function getAllInformation (){
+//     getApiInformation()
+//    .then(apiInfo=>  apiInfo.concat(getDbInformation()))
+//    .then(infototal => infototal)
+    
+// }
 // function getAllInformation (){   
 //     const apiInfo = new Promise((res, rej)=> {
 //         res(getApiInformation())

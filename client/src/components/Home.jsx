@@ -7,6 +7,7 @@ import Search from './Search'
 import Card from './Card'
 import Paginated from './Paginated'
 import './Home.css'
+import pokeapp from './img/pokeapp.png'
 
 export default function Home(){
     const dispatch = useDispatch()
@@ -61,10 +62,15 @@ export default function Home(){
 
     return(
         <div>
-            <h1> The PokeAPP </h1>
-
+            <div className='navbar'>
+            <img src={pokeapp} alt='pokeapp' className='pokeapp'/>
+            <div className='circle'>
+                <></>
+            </div>
+            <hr/>
+            </div>
+            <br/>
             <Search />  
-
             <div className='orders'>
                 <select onChange={e=> filtrados(e.target.value)}>
                     <option key='Created'>Created by </option>

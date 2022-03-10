@@ -1,17 +1,12 @@
 body{
     background-color: rgb(243, 243, 243);
 }
-.cards{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    
-}
+
 #backtothelanding{
     border-radius: 5px;
     margin-left: -80rem;
     
 }
-
 
 #backtothelanding:hover{
     cursor: pointer;
@@ -43,4 +38,63 @@ body{
 
 .orders{
     margin-right: 15rem;
+ 
+}
+.navbar{
+       background-color: rgb(230, 34, 34);
+       padding: 0.01rem;
+}
+.pokeapp{
+    height: 8rem;
+}
+
+.cards{
+    background: rgb(251,63,63);
+    background: radial-gradient(circle, rgba(251,63,63,1) 0%, rgba(226,251,10,1) 100%);
+}
+hr{
+    height: 1rem;
+    margin-bottom: -0.5rem;
+    width: 100%;
+    background-color: black;
+}
+.circle{
+       color: white;        
+        width: 1rem;
+        margin-bottom: 1rem;
+}
+ 
+  /** dispositivos móviles en vista viewport (vertical) */
+  @media (max-width: 575px) {
+    .pokeapp{
+        width: 80%;
+    }
+    
+}
+
+/** dispositivos medianos (tablets) */
+@media (min-width: 576px) and (max-width: 991px){
+    .cards{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/** dispositivos grandes (desktops) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .cards{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        
+    }
+
+}
+/** dispositivos extra grandes (monitores grandes, tvs) */
+@media (min-width: 1200px) {
+
+    .cards{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        
+    }
+
 }
