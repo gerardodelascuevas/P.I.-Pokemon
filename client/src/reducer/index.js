@@ -2,6 +2,7 @@
 const initialState = {
     pokemon: [],
     type: [],
+    allPokes: []
 }
 
 export default function rootReducer(state = initialState, action){
@@ -9,7 +10,8 @@ export default function rootReducer(state = initialState, action){
         case "GET_POKEMONS":
             return{
                 ...state,
-                pokemon: action.payload 
+                pokemon: action.payload, 
+                allPokes: action.payload,
             }
         case "GET_TYPES": 
         return{
@@ -36,10 +38,16 @@ export default function rootReducer(state = initialState, action){
                 ...state,
             }
         case "FILTER_BY_CREATE":
-                const pokes = state.pokemon           
-                const filterbycreate = action.payload === "Created by the you" ? state.pokemon.filter(x=> x.createdByDb === true) 
-                : state.pokemon.filter(x=> !x.createdByDb)              
+                const allPokes = state.allPokes
+                const pokes = state.pokemon 
+                let filterbycreate
+                if(action.payload === "Created") filterbycreate = state.allPokes
+               else {
+                   filterbycreate = action.payload === "Created by you" ? state.pokemon.filter(x=> x.createdByDb === true) 
+                    : state.pokemon.filter(x=> x.createdByDb !== true) 
+               }              
                 //console.log(state.pokemon)
+                
                 return {
                     ...state,
                     pokemon: filterbycreate

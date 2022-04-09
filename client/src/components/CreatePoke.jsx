@@ -18,7 +18,7 @@ export default function CreatePoke(){
     const [newpoke, setNewpoke] = useState({
          //id: '',
         name: '',
-        Types: [], //[{slot: 1, type: {name: null}}], //[{} , {}]
+        type: [], //[{slot: 1, type: {name: null}}], //[{} , {}]
         life: '',
         force: '',
         defense: '',
@@ -31,7 +31,7 @@ export default function CreatePoke(){
     const [typeOne, setTypeOne] = useState('')
     const handlePokeOneType = (e)=> {
         setTypeOne(e.target.value)
-        setNewpoke({...newpoke, [e.target.name]:  newpoke.Types.concat(e.target.value) })
+        setNewpoke({...newpoke, [e.target.name]:  newpoke.type = e.target.value })
     }
     console.log(typeOne)
     const handleCreatePoke = (e)=> {
@@ -62,7 +62,7 @@ export default function CreatePoke(){
             weight: '',
             height: '',
             img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/40.svg",
-            Types: [{name: typeOne}]
+            type: []
         })
         navigate('/home')
     }
@@ -79,6 +79,7 @@ export default function CreatePoke(){
                 <h5 > Pokemon name: <input  name='name' onChange={handleCreatePoke} type='text'/> </h5>                
                 <h5 > Pokemon Type:  
                     <select  name= 'type' onChange={e=> handlePokeOneType(e)}> 
+                        <option key='select'> Select your type </option>
                         { allTypes.map(x=> <option key={x.name} name= 'type'  value={x.name} > {x.name} </option> )}  
                     </select>
                 </h5>
